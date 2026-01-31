@@ -1,0 +1,53 @@
+@import "base.css";
+
+:root {
+  --content-width: 48rem;
+}
+
+html { scroll-snap-type: y mandatory }
+
+header {
+  position: sticky;
+  top: 0;
+  height: 0;
+  padding-top: var(--spacing);
+  padding-left: var(--spacing);
+}
+
+main {
+  > section {
+    display: grid;
+    grid-template-columns: 1fr min(var(--content-width), 100%) 1fr;
+    place-content: center;
+
+    min-height: 100lvh;
+    padding: 0 var(--spacing);
+
+    scroll-snap-align: start;
+    /*
+    &:nth-of-type(odd) {
+      background-color: oklch(from var(--color-background) l c h / 10%);
+    }*/
+    > * { grid-column: 2 }
+  }
+}
+
+hr {
+  max-width: var(--content-width, 100%);
+  margin: 0 auto;
+  border: none;
+  border-bottom: 0.5px solid CanvasText;
+}
+
+svg.icon {
+  width: 2.5rem;
+  height: auto;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.5;
+}
+
+@media only screen and (max-width: 30em) {
+  html { scroll-snap-type:y proximity }
+  main > section { padding: 0 }
+}

@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* html, */
+body { height: 100lvh }
+
+img, picture,
+video, canvas,
+/* svg:not([role=graphics-symbol]), */
+svg:not([class*=icon]) {
+  display: block;
+  max-width: 100%;
+  /* height: auto; */
+}
+
+iframe, embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}

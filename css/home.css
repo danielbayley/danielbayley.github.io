@@ -1,0 +1,28 @@
+@import "base.css";
+
+header { margin-top: 25vh }
+nav {
+  ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--spacing);
+  }
+  li {
+    height: 8rem
+  }
+}
+
+a[href] svg * { transition: stroke var(--time) var(--ease) }
+
+a[href*="bsky.app"]:hover svg * { stroke: var(--color-brand-bluesky) }
+a[href*="pinterest.com"]:hover svg * { stroke: var(--color-brand-pinterest) }
+a[href*="lucide.dev"]:hover svg path:first-of-type { stroke: var(--color-brand-lucide) }
+a[href*="algora.io"]:hover svg * { stroke: var(--color-brand-algora) }
+a[href*="gitranks.com"]:hover svg * { stroke: var(--color-brand-gitranks) }
+
+svg.icon {
+  width: 6rem;
+}

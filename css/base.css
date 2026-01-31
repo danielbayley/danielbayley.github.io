@@ -1,0 +1,139 @@
+@import "reset.css";
+
+:root {
+  scroll-behavior: smooth;
+  touch-action: pan-y;
+  /* overflow-x: clip; */
+  color-scheme: light dark;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { interpolate-size: allow-keywords }
+}
+
+body {
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  /* all: unset; */
+  text-decoration: none;
+  color: inherit;
+}
+
+/*:not([role=graphics-symbol]) */
+svg:not([class*=icon]), iframe, embed {
+  display: block;
+  max-width: 100%;
+  /* height: auto; */
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Metropolis;
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/metropolis@latest/latin-400-normal.woff2) format(woff2);
+}
+
+:root {
+  --color-black: #0d0d0d; /*: #09090b; */
+  /* --color-white: whitesmoke; /*: #f5f5f5 */
+
+  --color-brand-bluesky: #0085ff;
+  /*
+  --color-brand-vimeo: #1ab7ea;
+  --color-brand-twitter: #55acee;
+  --color-brand-behance: #1769ff;
+  */
+  --color-brand-pinterest: #bd081c;
+  --color-brand-lucide: #f56565;
+  --color-brand-algora: #611fd2;
+  --color-brand-gitrank: #c5b4f6;
+
+  --color-current-invert: rgb(from currentcolor calc(255 - r) calc(255 - g) calc(255 - b));
+
+  --color-background: light-dark(whitesmoke, var(--color-black));
+
+  --spacing: 1rem;
+
+  --time: 250ms;
+  --ease: ease-in-out;
+}
+
+body {
+  /*display: flex;
+  flex-direction: column;
+  place-content: center;*/
+  font-family: Gotham, Metropolis, sans-serif;
+  background-color: var(--color-background);
+}
+
+header {
+  margin-top: 25vh;
+  /*height: fit-content;*/
+}
+nav {
+  ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: calc(var(--spacing) * 2) var(--spacing);
+  }
+  li {
+    height: 8rem
+  }
+}
+
+a[href] {
+  transition: color var(--time) var(--ease);
+  svg * { transition: stroke var(--time) var(--ease) }
+  &::after { transition: transform var(--time) ease-out }
+}
+
+a[title]:hover::after { /*:hover */
+  display: block;
+  content: attr(title);
+  text-align: center;
+  /*margin-top: 1lh;*/
+  transform: translateY(var(--spacing));
+
+  /*color: light-dark(currentColor, currentColor);*/
+  background-color: currentColor;
+  padding: 0.5em;
+  border-radius: 8px;
+}
+
+a[href*="bsky.app"]:hover {
+  color: var(--color-brand-bluesky);
+}
+
+a[href*="pinterest.com"]:hover {
+  color: var(--color-brand-pinterest);
+  /*&[title]::after { TODO }*/
+}
+
+a[href*="lucide.dev"]:hover svg path:first-of-type {
+  stroke: var(--color-brand-lucide);
+}
+
+a[href*="algora.io"]:hover svg * {
+  color: var(--color-brand-algora);
+}
+
+a[href*="gitranks.com"]:hover svg * {
+  color: var(--color-brand-gitrank);
+}
+
+svg.icon {
+  width: 1.5rem; /*: 24px; */
+  height: auto;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
