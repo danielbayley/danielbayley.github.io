@@ -1,28 +1,249 @@
 @import "base.css";
 
-header { margin-top: 25vh }
+svg.logo {
+  width: 8rem;
+  height: auto;
+  fill: currentcolor;
+  stroke: none;
+  display: none;
+}
+
+header { padding-top: 30vh } /*: 25vh; /*: 33vh;
+  /* height: fit-content;
+}*/
 nav {
   ul {
     list-style: none;
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: var(--spacing);
+    gap: calc(var(--spacing) * 2) var(--spacing);
   }
-  li {
+  /*li {
     height: 8rem
+  }*/
+}
+
+svg.icon {
+  --width: 6rem;
+  width: var(--width);
+  /* { transition-property: stroke, scale, rotate, translate } /*, stroke-dashoffset } */
+}
+
+/* TODO? role="tooltip" */
+a[title]:after { transition: translate var(--time-hover) ease-out }
+a[title]:hover:after {
+  display: block;
+  max-width: 7ch; /*: calc(var(--width) - var(--spacing)); */
+  padding: calc(var(--spacing) / 2);
+  content: attr(title);
+  text-align: center;
+  color: black;
+  border-radius: var(--corner-rounded);
+  translate: 0 var(--spacing);
+}
+
+a[href] svg.icon * { transition: stroke var(--time-hover) var(--ease) }
+
+a:where([href*=github], [href*=codepen]):hover {
+  /* stroke: var(--color-grey); */
+  &[title]:after { background-color: var(--color-current-invert) }
+}
+
+a[href*=github] {
+  /* TODO */
+}
+
+/*
+a[href*=npm] { /*=npmjs] * /
+  &:hover {
+    svg.icon * { stroke: var(--color-brand-npm) }
+  }
+
+  &[title]:after { background-color: var(--color-brand-npm) }
+}*/
+
+a[href^=motion] {
+  &:hover {
+    svg.icon * { stroke: var(--color-brand-youtube) }
+    &[title]:after { background-color: var(--color-brand-youtube) }
+  }
+
+  svg.icon {
+    --y: 14px;
+    --loop: 1;
+
+    * { transition: none } /* FIXME */
+
+    g use {
+      &:last-of-type { y: var(--y) }
+      &[href] { animation: reel var(--time) var(--ease) var(--loop) }
+    }
+    &:hover g[clip-path] use[href] {
+      animation-play-state: running;
+      --loop: infinite;
+      --ease: linear;
+    }
+  }
+} @keyframes reel {
+  to { translate: 0 calc(var(--y) * -1) }
+} /*
+_::-webkit-full-page-media, _:future, :root path:not([fill]) {
+  a[href^=motion] svg.icon * { transition: none }
+}*/
+
+
+a[href*=algora] {
+  &:hover {
+    svg.icon * { stroke: var(--color-brand-algora) }
+    &[title]:after { background-color: var(--color-brand-algora) }
+  }
+
+  svg.icon {
+    g {
+      transition: calc(var(--time) / 2) var(--ease);
+      transition-property: scale, translate;
+      * {
+        vector-effect: non-scaling-stroke;
+        stroke-width: calc(var(--stroke-width) * 4);
+      }
+    }
+    &:hover g {
+      scale: 0;
+      &:last-of-type {
+        scale: 300%;
+        translate: 0 -3px;
+      }
+    }
+  } /*
+    --move: 1px;
+    rect { transition: translate calc(var(--time) / 2) var(--ease) }
+
+    &:hover .pointer {
+      + rect { translate: calc(var(--move) * -1) calc(var(--move) * -1) }
+      + rect + rect { translate: var(--move) calc(var(--move) * -1) }
+      + rect + rect + rect { translate: calc(var(--move) * -1) 1px }
+      + rect + rect + rect + rect { translate: var(--move) var(--move) }
+    }
+  }*/
+}
+
+
+a[href*=gitranks] {
+  &:hover {
+    svg.icon * { stroke: var(--color-brand-gitranks) }
+    /* path { d: path("m21.8 10.3-5.1 2.6c-1 .5-1.4 1.7-.9 2.7l2.6 5.2v.2c0 .3-.2.5-.5.5h-.3c0-.1-.1-.1-.1-.1-1.3-1.2-2.9-2.9-4.1-4-.8-.8-2.1-.8-2.9 0l-4.1 4c-.1 0-.3.1-.4.1-.3 0-.5-.2-.5-.5 0-.1.1-.1.1-.2l2.6-5.1c.5-1 .1-2.2-.9-2.7-2-1.1-5.1-2.7-5.1-2.7s-.1 0-.1-.1v-.1C2 10 2 10 2 9.9c0-.3.2-.5.5-.5l5.8.9c1.1.1 2.1-.6 2.3-1.7l.9-5.7v-.2l.1-.1v-.1l.1-.1h.6l.1.1v.1l.1.1v.2l.9 5.7c.2 1.1 1.2 1.9 2.3 1.7l5.7-.9c.4 0 .6.2.6.5Z") } */
+    &[title]:after { background-color: var(--color-brand-gitranks) }
+  }
+  svg.icon {
+    --scale: 60%;
+    --rotate: -90deg;
+    path {
+      vector-effect: non-scaling-stroke;
+      stroke-width: calc(var(--stroke-width) * 4);
+
+      transition-property: scale, rotate;
+      transition: calc(var(--time) / 2) var(--ease);
+      animation: starburst calc(var(--time) / 2) ease-out;
+    }
+    &:hover path {
+      scale: var(--scale);
+      rotate: var(--rotate);
+    }
+  }
+} @keyframes starburst {
+  from {
+    scale: 0;
+    rotate: var(--rotate);
+  }
+  80% { scale: 110% }
+}
+
+
+a[href*=lucide] {
+  &:hover {
+    svg.icon path:first-of-type { stroke: var(--color-brand-lucide) }
+    &[title]:after { background-color: var(--color-brand-lucide) }
+  }
+
+  svg.icon {
+    --draw: 100;
+
+    path {
+      transition-property: stroke, stroke-dashoffset;
+      transition-duration: var(--time-hover), var(--time);
+      transition-timing-function: var(--ease);
+    }
+
+    &:hover path[pathLength] { stroke-dashoffset: var(--draw) }
+    path[pathLength] {
+      @starting-style { stroke-dashoffset: var(--draw) }
+    }
   }
 }
 
-a[href] svg * { transition: stroke var(--time) var(--ease) }
 
-a[href*="bsky.app"]:hover svg * { stroke: var(--color-brand-bluesky) }
-a[href*="pinterest.com"]:hover svg * { stroke: var(--color-brand-pinterest) }
-a[href*="lucide.dev"]:hover svg path:first-of-type { stroke: var(--color-brand-lucide) }
-a[href*="algora.io"]:hover svg * { stroke: var(--color-brand-algora) }
-a[href*="gitranks.com"]:hover svg * { stroke: var(--color-brand-gitranks) }
+a[href*=bsky] {
+  &:hover {
+    svg.icon * { stroke: var(--color-brand-bluesky) }
+    &[title]:after { background-color: var(--color-brand-bluesky) }
+  }
 
-svg.icon {
-  width: 6rem;
+  svg.icon {
+    --rotate: 80deg;
+    --iterations: 2;
+    /* --time: 250ms; */
+    --ease: cubic-bezier(0, 0, .66, .8);
+
+    path {
+      transform-box: fill-box; /*: border-box; */
+      transform-origin: center;
+      animation: flap var(--time-hover) forwards alternate-reverse calc(var(--iterations) * 2) var(--ease);
+
+      &:first-of-type {
+        transform-origin: right;
+        rotate: y calc(var(--rotate) * -1);
+      }
+      &:last-of-type {
+        transform-origin: left;
+        rotate: y var(--rotate);
+      }
+    }
+    /* &:not(.intro) path { animation-play-state: paused } */
+
+    &:hover path {
+      animation-play-state: running;
+      animation-iteration-count: infinite;
+    }
+  }
+} @keyframes flap {
+  to { rotate: initial }
+}
+
+
+a[href*=pinterest] {
+  &:hover {
+    svg.icon * { stroke: var(--color-brand-pinterest) }
+    &[title]:after { background-color: var(--color-brand-pinterest) }
+  }
+
+  svg.icon {
+    --ease: ease-in;
+    g g {
+      transition: translate calc(var(--time) / 2) var(--ease);
+      animation: pin calc(var(--time) * 1.5) var(--ease);
+    }
+    &:hover g g { translate: 0 5px }
+  }
+} @keyframes pin {
+  33%, 66% { translate: 0 5px }
+}
+
+
+
+/* TODO */
+@media only screen and (max-width: 32em) {
+  /* @starting-style {
+    transform: translateY(4rem);
+  }*/
 }
