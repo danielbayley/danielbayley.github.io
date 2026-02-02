@@ -38,9 +38,16 @@ svg:not([class*=icon]), iframe, embed {
 }
 
 :root {
-  --color-black: #0d0d0d; /*: #09090b; */
-  /* --color-white: whitesmoke; /*: #f5f5f5 */
+  --color-black: #0d0d0d; /*: #09090b; /*: hsl(from black h s 90%); */
+  /* --color-white: whitesmoke; /*: gainsboro; /*: ghostwhite; /*: snow; /* #f5f5f5; */
+  /* --color-grey: #aaa; */
 
+  /* --color-brand-npm: #cb3837; TODO! */
+  --color-brand-youtube: #ff0033;
+  /* --color-brand-vimeo: #17d5ff; */
+  --color-brand-algora: #611fd2;
+  --color-brand-gitranks: #c5b4f6;
+  --color-brand-lucide: #f56565;
   --color-brand-bluesky: #0085ff;
   /*
   --color-brand-vimeo: #1ab7ea;
@@ -48,18 +55,21 @@ svg:not([class*=icon]), iframe, embed {
   --color-brand-behance: #1769ff;
   */
   --color-brand-pinterest: #bd081c;
-  --color-brand-lucide: #f56565;
-  --color-brand-algora: #611fd2;
-  --color-brand-gitrank: #c5b4f6;
 
   --color-current-invert: rgb(from currentcolor calc(255 - r) calc(255 - g) calc(255 - b));
 
   --color-background: light-dark(whitesmoke, var(--color-black));
 
+  --corner-rounded: 0.5rem;
+
   --spacing: 1rem;
 
-  --time: 250ms;
-  --ease: ease-in-out;
+  --time: 1s;
+  --time-hover: calc(var(--time) / 4);
+  --ease: cubic-bezier(0.5, 0, 0.5, 1); /*: ease-in-out; */
+
+  --stroke-width: 2;
+  /* --hover-cursor: none; */
 }
 
 body {
@@ -70,62 +80,14 @@ body {
   background-color: var(--color-background);
 }
 
-header {
-  margin-top: 25vh;
-  /*height: fit-content;*/
-}
-nav {
-  ul {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: calc(var(--spacing) * 2) var(--spacing);
+/*a[href] { transition: all var(--time) var(--ease) }*/
+
+svg {
+  * {
+    transform-box: fill-box; /*: border-box; */
+    transform-origin: center;
   }
-  li {
-    height: 8rem
-  }
-}
-
-a[href] {
-  transition: color var(--time) var(--ease);
-  svg * { transition: stroke var(--time) var(--ease) }
-  &::after { transition: transform var(--time) ease-out }
-}
-
-a[title]:hover::after { /*:hover */
-  display: block;
-  content: attr(title);
-  text-align: center;
-  /*margin-top: 1lh;*/
-  transform: translateY(var(--spacing));
-
-  /*color: light-dark(currentColor, currentColor);*/
-  background-color: currentColor;
-  padding: 0.5em;
-  border-radius: 8px;
-}
-
-a[href*="bsky.app"]:hover {
-  color: var(--color-brand-bluesky);
-}
-
-a[href*="pinterest.com"]:hover {
-  color: var(--color-brand-pinterest);
-  /*&[title]::after { TODO }*/
-}
-
-a[href*="lucide.dev"]:hover svg path:first-of-type {
-  stroke: var(--color-brand-lucide);
-}
-
-a[href*="algora.io"]:hover svg * {
-  color: var(--color-brand-algora);
-}
-
-a[href*="gitranks.com"]:hover svg * {
-  color: var(--color-brand-gitrank);
+  g { transform-box: view-box }
 }
 
 svg.icon {
@@ -133,7 +95,35 @@ svg.icon {
   height: auto;
   fill: none;
   stroke: currentcolor;
-  stroke-width: 2;
+  stroke-width: var(--stroke-width);
   stroke-linecap: round;
   stroke-linejoin: round;
+
+  /* FIXME
+  rect.pointer {
+    width:  100%;
+    height: 100%;
+  }
+  circle.pointer {
+    cx: 50%;
+    cy: 50%;
+    r:  50%;
+  }*/
+
+  path:not([d$=z i]) { transform-box: stroke-box }
+  path[pathLength] { stroke-dasharray: 100 }
 }
+
+/*
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-play-state: paused !important;
+    transition: none !important;
+  }
+}*/
+
+/*
+_::-webkit-full-page-media, _:future, :root * {
+  fill: white;
+  mix-blend-mode: difference;
+}*/

@@ -4,8 +4,11 @@
   box-sizing: border-box;
 }
 
-/* html, */
-body { height: 100lvh }
+html { text-size-adjust: none }
+body {
+  height: 100lvh;
+  -webkit-font-smoothing: antialiased;
+}
 
 img, picture,
 video, canvas,
